@@ -28,7 +28,7 @@ $ar_jabatan = App\Models\Jabatan::all();
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Kode</label>
                             <div class="col-sm-10">
-                                <input type="text" name="kode_petugas" value="{{ $row->kode_petugas }}" class="form-control">
+                                <input type="text" disabled name="kode_petugas" value="{{ $row->kode_petugas }}" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-3">

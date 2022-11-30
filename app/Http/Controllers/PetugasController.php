@@ -10,6 +10,9 @@ use App\Exports\PetugasExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
+Use Alert;
+
+
 
 class PetugasController extends Controller
 {
@@ -60,7 +63,26 @@ class PetugasController extends Controller
             'status' => 'required',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'jabatan_id' => 'required|integer',
-        ]);
+        ],
+        //custom pesan errornya
+        [
+            'kode_petugas.required'=>'Kode Petugas Wajib Diisi',
+            'kode_petugas.unique'=>'Kode Petugas Sudah Ada (Terduplikasi)',
+            'kode_petugas.max'=>'Kode Petugas Maksimal 3 karakter',
+            'nama.required'=>'Nama Wajib Diisi',
+            'nama.max'=>'Nama Maksimal 45 karakter',
+            'tmp_lahir.required'=>'Tempat Lahir Wajib Diisi',
+            'tgl_lahir.required'=>'Tanggal Lahir Wajib Diisi',
+            'jabatan_id.required'=>'Jabatan Wajib Diisi',
+            'jabatan_id.integer'=>'Jabatan Wajib Diisi Berupa dari Pilihan yg Tersedia',
+            'gender.required'=>'Jenis Kelamin Wajib Diisi',
+            'status.required'=>'Status Wajib Diisi',
+            'foto.image'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.mimes'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.max'=>'Ukuran Foto Maksimal 2048',
+
+        ]
+    );
         //Petugas::create($request->all());
         //------------apakah user  ingin upload foto-----------
         if(!empty($request->foto)){

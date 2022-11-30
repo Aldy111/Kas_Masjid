@@ -52,7 +52,7 @@
                             @endempty
                         </td>
                         <td width="20%">
-                            <form method="POST" action="{{ route('petugas.destroy',$row->id) }}">
+                            <form method="POST" id="formDelete">
                                 @csrf
                                 @method('DELETE')
                                 <a class="btn btn-info btn-sm" title="Detail Petugas"
@@ -65,8 +65,9 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 &nbsp;
-                                <button type="submit" class="btn btn-danger btn-sm" title="Hapus Petugas"
-                                    onclick="return confirm('Anda Yakin Data akan diHapus?')">
+                                <button type="submit" 
+                                data-action="{{ route('petugas.destroy',$row->id) }}"
+                                class="btn btn-danger btn-sm btnDelete" title="Hapus Petugas">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
@@ -80,5 +81,28 @@
 
     </div>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('body').on('click', '.btnDelete', function(e) {
+    e.preventDefault();
+    var action = $(this).data('action');
+    Swal.fire({
+        title: 'Yakin ingin menghapus data ini?',
+        text: "Data yang sudah dihapus tidak bisa dikembalikan lagi",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Yakin'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $('#formDelete').attr('action', action);
+            $('#formDelete').submit();
+        }
+    })
+})
+</script>
 @endsection
