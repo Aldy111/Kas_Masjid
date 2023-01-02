@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -53,7 +53,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" >
                                     {{ __('Login') }}
                                 </button>
 
@@ -69,5 +69,80 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand">
+						<img src="{{url('images/logo3.png')}}" alt="logo">
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Login</h4>
+							<form method="POST" action="{{ route('login') }}" class="my-login-validation" novalidate="">
+                                @csrf
+								<div class="form-group">
+									<label for="email">E-Mail Address</label>
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+								</div>
+
+								<div class="form-group">
+									<label for="password">Password
+										
+                                        @if (Route::has('password.request'))
+                                        <a class="btn btn-link float-right" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                        @endif
+									</label>
+									
+
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required data-eye autocomplete="current-password">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+								</div>
+
+								<div class="form-group">
+									<div class="custom-checkbox custom-control">
+                                        <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                        <label class="custom-control-label" for="remember">
+                                            {{ __('Remember Me') }}
+                                        </label>
+									</div>
+								</div>
+
+								<div class="form-group m-0">
+									<button type="submit" class="btn btn-primary btn-block">
+										Login
+									</button>
+								</div>
+                                @if (Route::has('register'))
+								<div class="mt-4 text-center">
+									Don't have an account? <a href="{{ route('register') }}">Create One</a>
+								</div>
+                                @endif
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2022 &mdash; Masjid Kubah Mas 
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 @endsection

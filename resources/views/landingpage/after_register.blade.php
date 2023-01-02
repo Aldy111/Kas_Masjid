@@ -10,7 +10,7 @@
           <h1 class="text-capitalize mb-4">Selamat Anda Sudah Berhasil Register</h1>
           <p class="mb-4">Mohon Tunggu Approve Dari Admin Kami
             <br>Terima Kasih.</p> <a type="button"
-            class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#applyLoan">
+            class="btn btn-primary" href="{{url('/login')}}" >
             Login<span style="font-size: 14px;" class="ms-2 fas fa-arrow-right"></span></a>
         </div>
       </div>

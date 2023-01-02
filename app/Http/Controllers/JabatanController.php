@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //tambahan
 use App\Models\Jabatan;
+Use Alert;
 
 class JabatanController extends Controller
 {
@@ -42,12 +43,22 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_jabatan' => 'required|unique:jabatan|max:45',
+            'kode_jabatan' => 'required|unique:jabatan|max:5',
             'nama_jabatan' => 'required|unique:jabatan|max:45'
-        ]);
-      
+        ],
+        //custom pesan error
+        [
+            'kode_jabatan.required' => 'Kode Jabatan Wajib Di Isi',
+            'kode_jabatan.unique' => 'Kode Jabatan Sudah Ada (Terduplikasi)',
+            'kode_jabatan.max' => 'Kode Jabatan Maksimal 5 karakter',
+            'nama_jabatan.required' => 'Nama jabatan Wajib di Isi',
+            'nama_jabatan.unique' => 'Nama Jabatan Sudah Ada (Terduplikasi)',
+            'nama_jabatan.max' => 'Nama Jabatan Maksimal 45 karakter',
+        ]
+    );
+    
         Jabatan::create($request->all());
-       
+    
         return redirect()->route('jabatan.index')
                         ->with('success','Jabatan Berhasil Disimpan');
     }

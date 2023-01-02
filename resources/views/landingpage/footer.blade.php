@@ -2,8 +2,8 @@
 	<div class="container">
 		<div class="row align-items-center mt-5 text-center text-md-start">
 			<div class="col-lg-4">
-        <a href="index.html">
-          <img loading="prelaod" decoding="async" class="img-fluid" width="250" src="images/logo2.png" alt="Masijid">
+        <a href="{{ url('/home') }}">
+          <img loading="prelaod" decoding="async" class="img-fluid" width="250" src="{{url('images/logo2.png')}}" alt="Masjid">
         </a>
 			</div>
 			<div class="col-lg-4 col-md-6 mt-4 mt-lg-0">

@@ -9,6 +9,7 @@ use App\Exports\KasKeluarExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
+Use Alert;
 
 class KasKeluarController extends Controller
 {
@@ -44,6 +45,18 @@ class KasKeluarController extends Controller
             'keterangan' => 'required',
             'tanggal' => 'required',
             'pengeluaran' => 'required|integer'
+        ],
+        //custom pesan errornya
+        [
+            'kode_kas.required'=>'Kode Petugas Wajib Diisi',
+            'kode_kas.unique'=>'Kode Kas Keluar Sudah Ada (Terduplikasi)',
+            'kode_kas.max'=>'Kode Kas keluar Maksimal 7 karakter',
+            'sumber.required'=>'Sumber Wajib Diisi',
+            'sumber.max'=>'Sumber Maksimal 45 karakter',
+            'keterangan.required'=>'Keterangan Wajib di Isi',
+            'tanggal.required'=>'Tanggal Kas Keluar Wajib Diisi',
+            'pengeluaran.required'=>'pengeluaran Wajib di Isi',
+            'pengeluaran.integer'=>'pengeluaran Wajib di Isi Berupa Angka',
         ]);
         //Petugas::create($request->all());
         //lakukan insert data dari request form
@@ -86,6 +99,15 @@ class KasKeluarController extends Controller
             'keterangan' => 'required',
             'tanggal' => 'required',
             'pengeluaran' => 'required|integer'
+        ],
+        //custom pesan errornya
+        [
+            'sumber.required'=>'Sumber Wajib Diisi',
+            'sumber.max'=>'Sumber Maksimal 45 karakter',
+            'keterangan.required'=>'Keterangan Wajib di Isi',
+            'tanggal.required'=>'Tanggal Kas Keluar Wajib Diisi',
+            'pengeluaran.required'=>'pengeluaran Wajib di Isi',
+            'pengeluaran.integer'=>'pengeluaran Wajib di Isi Berupa Angka',
         ]);
         //lakukan update data dari request form edit
         DB::table('kas_keluar')->where('id',$id)->update(

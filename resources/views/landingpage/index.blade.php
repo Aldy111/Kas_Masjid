@@ -36,18 +36,9 @@
 
 <!-- /navigation -->
 
-<!--peminjaman-->
-@include('landingpage.form_peminjaman')
-<!--akhir peminjaman peminjaman-->
-
 <!--section-->
 
 <!--akhir section-->
-
-<!---agenda-->
-
-{{-- @include('landingpage.agenda') --}}
-<!---akhir agenda-->
 
 <!---profile--->
 {{-- @include('landingpage.about') --}}

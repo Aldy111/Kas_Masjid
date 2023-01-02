@@ -5,6 +5,15 @@
 $ar_petugas = App\Models\Petugas::all();
 $ar_bagian = App\Models\Bagian::all();
 @endphp
+<div class="pagetitle">
+                <h1>Petugas Jumaat</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Petugas Jumaat</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -26,31 +35,51 @@ $ar_bagian = App\Models\Bagian::all();
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Tanggal</label>
                             <div class="col-sm-10">
-                                <input type="date" name="tgl" value="{{ $row->tgl }}" class="form-control">
+                            <input type="date" name="tgl" value="{{ $row->tgl }}" 
+                                class="form-control @error('tgl') is-invalid @enderror">
+                                @error('tgl')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Petugas Jumaat</label>
                             <div class="col-sm-10">
-                                <select class="form-select" name="petugas_id">
-                                    <option selected>-- Pilih Petugas Jumaat --</option>
+                            <select class="form-select @error('petugas_id') is-invalid @enderror" name="petugas_id">
+                                    <option selected>-- Pilih Petugas --</option>
                                     @foreach($ar_petugas as $pj)
-                                    @php $sel = ($pj->id == $row->petugas_id) ? 'selected' : ''; @endphp
+                                    @php
+                                    $sel = ($row->petugas_id == $pj->id)? 'selected':'';
+                                    @endphp
                                     <option value="{{ $pj->id }}" {{ $sel }}>{{ $pj->nama }}</option>
                                     @endforeach
                                 </select>
+                                @error('petugas_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Bagian</label>
                             <div class="col-sm-10">
-                                <select class="form-select" name="bagian_id">
+                            <select class="form-select @error('bagian_id') is-invalid @enderror" name="bagian_id">
                                     <option selected>-- Pilih Bagian --</option>
                                     @foreach($ar_bagian as $b)
-                                    @php $sel2 = ($b->id == $row->bagian_id) ? 'selected' : ''; @endphp
+                                    @php
+                                    $sel2 = ($row->bagian_id == $b->id)? 'selected':'';
+                                    @endphp
                                     <option value="{{ $b->id }}" {{ $sel2 }}>{{ $b->nama }}</option>
                                     @endforeach
                                 </select>
+                                @error('bagian_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 

@@ -58,42 +58,13 @@
                         <i class="bi bi-circle"></i><span>Kas Keluar</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{{url('/laporan_kas')}}">
                         <i class="bi bi-circle"></i><span>Laporan</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </li><!-- End Tables Nav -->
-        <li class="nav-heading">Pages</li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-register.html">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li><!-- End Register Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-        </li><!-- End Login Page Nav -->
 
     </ul>
 

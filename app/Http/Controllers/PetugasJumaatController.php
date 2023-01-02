@@ -11,6 +11,7 @@ use App\Exports\PetugasJumaatExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
+Use Alert;
 
 class PetugasJumaatController extends Controller
 {
@@ -22,7 +23,7 @@ class PetugasJumaatController extends Controller
     public function index()
     {
         //menampilkan seluruh data
-        $petugasJ = PetugasJumaat::orderBy('id', 'DESC')->get();
+        $petugasJ = PetugasJumaat::orderBy('id', 'ASC')->get();
         return view('petugasJumaat.index',compact('petugasJ'));
     }
 
@@ -54,7 +55,16 @@ class PetugasJumaatController extends Controller
             'tgl' => 'required',
             'petugas_id' => 'required|integer',
             'bagian_id' => 'required|integer',
-        ]);
+        ],
+        //custom validasi
+        [
+            'tgl.required'=> 'tanggal Wajib di Isi',
+            'petugas_id.required'=> 'Petugas Wajib di Isi',
+            'petugas_id.integer'=>'Petugas Wajib Diisi Berupa dari Pilihan yg Tersedia',
+            'bagian_id.required'=>'Bagian Wajib di Isi',
+            'bagian_id.integer'=>'Bagian Wajib Diisi Berupa dari Pilihan yg Tersedia',
+        ]
+    );
         //Petugas::create($request->all());
         //lakukan insert data dari request form
         DB::table('petugas_jumaat')->insert(
@@ -108,7 +118,16 @@ class PetugasJumaatController extends Controller
             'petugas_id' => 'required|integer',
             'bagian_id' => 'required|integer',
             'updated_at'=>now(),
-        ]);
+        ],
+        //custom validasi
+        [
+            'tgl.required'=> 'tanggal Wajib di Isi',
+            'petugas_id.required'=> 'Petugas Wajib di Isi',
+            'petugas_id.integer'=>'Petugas Wajib Diisi Berupa dari Pilihan yg Tersedia',
+            'bagian_id.required'=>'Bagian Wajib di Isi',
+            'bagian_id.integer'=>'Bagian Wajib Diisi Berupa dari Pilihan yg Tersedia',
+        ]
+    );
         //lakukan update data dari request form edit
         DB::table('petugas_jumaat')->where('id',$id)->update(
             [

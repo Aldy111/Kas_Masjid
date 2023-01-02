@@ -10,8 +10,8 @@
           <h1 class="text-capitalize mb-4">Masjid Jami Kubah Mas</h1>
           <p class="mb-4">Informasi Tentang Masjid Jami Kubah Mas
             <br>di indonesia Tepatnya di Depok.</p> <a type="button"
-            class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#applyLoan">
-            Login<span style="font-size: 14px;" class="ms-2 fas fa-arrow-right"></span></a>
+            class="btn btn-primary" href="{{url('/about')}}" >
+            Latar Belakang<span style="font-size: 14px;" class="ms-2 fas fa-arrow-right"></span></a>
         </div>
       </div>
       <!-- <div class="col-lg-6">

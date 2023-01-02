@@ -10,7 +10,7 @@ use App\Exports\KegiatanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
-
+Use Alert;
 class KegiatanController extends Controller
 {
     /**
@@ -54,6 +54,20 @@ class KegiatanController extends Controller
             'ket' => 'nullable|string|min:10',
             'foto' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'petugas_id' => 'required|integer',
+        ],
+        //custom pesan errornya
+        [
+            'judul_kegiatan.required'=>'Judul Kegiatan Wajib Diisi',
+            'judul_kegiatan.max'=>'Judul Kegiatan Maksimal 45 karakter',
+            'tgl_kegiatan.required'=>'Tanggal Kegiatan Wajib Diisi',
+            'ket.min'=>'keterangan Minimal 10 Karakter ',
+            'foto.required'=>'Foto Wajib di Upload',
+            'foto.image'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.mimes'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.max'=>'Ukuran Foto Maksimal 2048',
+            'petugas_id.required'=>'Petugas Wajib di Isi',
+            'petugas_id.integer'=>'Petugas Wajib Diisi Berupa dari Pilihan yg Tersedia',
+
         ]);
         //Petugas::create($request->all());
         //------------apakah user  ingin upload foto-----------
@@ -121,6 +135,19 @@ class KegiatanController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'petugas_id' => 'required|integer',
             'updated_at'=>now(),
+        ],
+        //custom pesan errornya
+        [
+            'judul_kegiatan.required'=>'Judul Kegiatan Wajib Diisi',
+            'judul_kegiatan.max'=>'Judul Kegiatan Maksimal 45 karakter',
+            'tgl_kegiatan.required'=>'Tanggal Kegiatan Wajib Diisi',
+            'ket.min'=>'keterangan Minimal 10 Karakter ',
+            'foto.image'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.mimes'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.max'=>'Ukuran Foto Maksimal 2048',
+            'petugas_id.required'=>'Petugas Wajib di Isi',
+            'petugas_id.integer'=>'Petugas Wajib Diisi Berupa dari Pilihan yg Tersedia',
+
         ]);
         //------------foto lama apabila user ingin ganti foto-----------
         $foto = DB::table('kegiatan')->select('foto')->where('id',$id)->get();
@@ -166,7 +193,7 @@ class KegiatanController extends Controller
     {
         //sebelum hapus data, hapus terlebih dahulu fisik file fotonya jika ada
         $row = Kegiatan::find($id);
-        if(!empty($row->foto)) unlink('admin/img/'.$row->foto);
+        if(!empty($row->foto)) unlink(base_path('public/admin/img/'.$row->foto));
         //setelah itu baru hapus data pegawai
         Kegiatan::where('id',$id)->delete();
         return redirect()->route('kegiatan.index')

@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Carbon;
 class Petugas extends Model
 {
     use HasFactory;
@@ -11,7 +11,7 @@ class Petugas extends Model
     protected $table = 'petugas';
     //mapping ke kolom/fieldnya
     protected $fillable = ['kode_petugas','nama','tmp_lahir','tgl_lahir','alamat',
-                           'gender','no_hp','status','foto','jabatan_id'];
+                            'gender','no_hp','status','foto','jabatan_id'];
     //relasi one to many ke tabel pelatihan
     public function kegiatan()
     {

@@ -1,5 +1,14 @@
 @extends('admin.index')
 @section('content')
+<div class="pagetitle">
+                <h1>Petugas</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Petugas</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
 <section class="section profile">
     <div class="row">
         <div class="col-xl-12">
@@ -24,7 +33,7 @@
                         <br />Status: {{ $row->status }}
                         <br />Jenis Kelamin: {{ $row->gender }}
                         <br />Tempat Lahir: {{ $row->tmp_lahir }}
-                        <br />Tanggal Lahir: {{ $row->tgl_lahir }}
+                        <br />Tanggal Lahir: {{\Carbon\Carbon::parse($row->tgl_lahir)->translatedFormat('l,d F Y')}}
                         <br />Alamat: {{ $row->alamat }}
                     </div>
                     <a class="btn btn-info btn-sm" title="Kembali" href=" {{ url('petugas') }}">

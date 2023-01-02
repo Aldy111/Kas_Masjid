@@ -1,5 +1,14 @@
 @extends('admin.index')
 @section('content')
+<div class="pagetitle">
+                <h1>Petugas</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Petugas</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -16,7 +25,7 @@
                     </div>
                     @endif
                     <form method="POST" action="{{ route('petugas.store')}}" 
-                          enctype="multipart/form-data">
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Kode</label>

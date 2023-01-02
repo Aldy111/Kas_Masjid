@@ -9,6 +9,7 @@ use App\Exports\KasMasukExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
+Use Alert;
 
 class KasMasukController extends Controller
 {
@@ -44,6 +45,18 @@ class KasMasukController extends Controller
             'keterangan' => 'required',
             'tanggal' => 'required',
             'Pemasukan' => 'required|integer'
+        ],
+        //custom pesan errornya
+        [
+            'kode_kas.required'=>'Kode Petugas Wajib Diisi',
+            'kode_kas.unique'=>'Kode Kas Masuk Sudah Ada (Terduplikasi)',
+            'kode_kas.max'=>'Kode Kas Masuk Maksimal 7 karakter',
+            'sumber.required'=>'Sumber Wajib Diisi',
+            'sumber.max'=>'Sumber Maksimal 45 karakter',
+            'keterangan.required'=>'Keterangan Wajib di Isi',
+            'tanggal.required'=>'Tanggal Kas Masuk Wajib Diisi',
+            'Pemasukan.required'=>'Pemasukan Wajib di Isi',
+            'Pemasukan.integer'=>'Pemasukan Wajib di Isi Berupa Angka',
         ]);
         //Petugas::create($request->all());
         //lakukan insert data dari request form
@@ -86,6 +99,15 @@ class KasMasukController extends Controller
             'keterangan' => 'required',
             'tanggal' => 'required',
             'Pemasukan' => 'required|integer'
+        ],
+        //custom pesan errornya
+        [
+            'sumber.required'=>'Sumber Wajib Diisi',
+            'sumber.max'=>'Sumber Maksimal 45 karakter',
+            'keterangan.required'=>'Keterangan Wajib di Isi',
+            'tanggal.required'=>'Tanggal Kas Masuk Wajib Diisi',
+            'Pemasukan.required'=>'Pemasukan Wajib di Isi',
+            'Pemasukan.integer'=>'Pemasukan Wajib di Isi Berupa Angka',
         ]);
         //lakukan update data dari request form edit
         DB::table('kas_masuk')->where('id',$id)->update(
@@ -114,7 +136,7 @@ class KasMasukController extends Controller
         //setelah itu baru hapus data pegawai
         KasMasuk::where('id',$id)->delete();
         return redirect()->route('kas_masuk.index')
-                        ->with('success','Data Petugas Berhasil Dihapus');
+                        ->with('success','Data Kas Masuk Berhasil Dihapus');
     }
     public function kas_masukPDF()
     {

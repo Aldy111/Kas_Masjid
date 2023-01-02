@@ -1,5 +1,14 @@
 @extends('admin.index')
 @section('content')
+<div class="pagetitle">
+                <h1>Petugas</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Petugas</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
 <div class="col-12">
     <div class="card recent-sales overflow-auto">
         <div class="card-body">
@@ -11,9 +20,11 @@
             </div>
             @endif
             <br />
+            @if(Auth::user()->role == 'admin')
             <a class="btn btn-primary btn-sm" title="Tambah Petugas" href=" {{ route('petugas.create') }}">
                 <i class="bi bi-save"></i>
             </a>&nbsp;
+            @endif
             <a class="btn btn-danger btn-sm" title="Export PDF Petugas" href=" {{ url('petugas-pdf') }}">
                 <i class="bi bi-file-pdf"></i>
             </a>&nbsp;
@@ -60,6 +71,7 @@
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 &nbsp;
+                                @if(Auth::user()->role == 'admin')
                                 <a class="btn btn-warning btn-sm" title="Ubah Petugas"
                                     href=" {{ route('petugas.edit',$row->id) }}">
                                     <i class="bi bi-pencil"></i>
@@ -70,6 +82,7 @@
                                 class="btn btn-danger btn-sm btnDelete" title="Hapus Petugas">
                                     <i class="bi bi-trash"></i>
                                 </button>
+                                @endif
                             </form>
                         </td>
                     </tr>

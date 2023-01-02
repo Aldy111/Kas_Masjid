@@ -1,5 +1,14 @@
 @extends('admin.index')
 @section('content')
+<div class="pagetitle">
+                <h1>Jabatan</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Jabatan</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
 <div class="col-12">
     <div class="card recent-sales overflow-auto">
         <div class="card-body">
@@ -10,9 +19,12 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
-            <br /> <a class="btn btn-info btn-sm" title="Kembali" href=" {{ route('jabatan.create') }}">
+            <br /> 
+            @if(Auth::user()->role == 'admin')
+            <a class="btn btn-primary btn-sm" title="Kembali" href=" {{ route('jabatan.create') }}">
                 <i class="bi bi-save"></i>
             </a>
+            @endif
             <br /><br />
             <table class="table table-borderless datatable">
                 <thead>

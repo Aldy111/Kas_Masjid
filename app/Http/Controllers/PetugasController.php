@@ -16,6 +16,48 @@ Use Alert;
 
 class PetugasController extends Controller
 {
+    public function apiPetugas()
+    {
+        //menampilkan seluruh data
+        //$pegawai = Pegawai::all();
+        $petugas = Petugas::join('jabatan', 'jabatan.id', '=', 'petugas.jabatan_id')
+                    ->select('petugas.kode_petugas','petugas.nama','petugas.gender',
+                    'jabatan.nama_jabatan AS posisi','petugas.tgl_lahir','petugas.tmp_lahir','petugas.alamat') 
+                    ->get();
+        return response()->json(
+            [
+                'success'=>true,
+                'message'=>'Data Petugas',
+                'data'=>$petugas,
+            ],200);
+    }
+
+    public function apiPetugasDetail($id)
+    {
+        //menampilkan detail data seorang petugas
+        //$petugas = Petugas::find($id);
+        $petugas = Petugas::join('jabatan', 'jabatan.id', '=', 'petugas.jabatan_id')
+                    ->select('petugas.kode_petugas','petugas.nama','petugas.gender',
+                    'jabatan.nama_jabatan AS posisi','petugas.tgl_lahir','petugas.tmp_lahir','petugas.alamat')
+                    ->where('petugas.id', '=', $id) 
+                    ->get();
+        
+        if($petugas){ //jika data petugas ditemukan
+            return response()->json(
+                [
+                    'success'=>true,
+                    'message'=>'Detail Petugas',
+                    'data'=>$petugas,
+                ],200);
+        }
+        else{ //jika data petugas tidak ditemukan
+            return response()->json(
+                [
+                    'success'=>false,
+                    'message'=>'Detail Pegawai Tidak ditemukan',
+                ],404);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -80,13 +122,14 @@ class PetugasController extends Controller
             'foto.image'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
             'foto.mimes'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
             'foto.max'=>'Ukuran Foto Maksimal 2048',
+            'alamat.min'=>'Alamat Minimal 10 Karakter',
 
         ]
     );
         //Petugas::create($request->all());
         //------------apakah user  ingin upload foto-----------
         if(!empty($request->foto)){
-            $fileName = 'foto-'.$request->kode_petugas.'.'.$request->foto->extension();
+            $fileName = 'foto-'.$request->nama.'.'.$request->foto->extension();
             //$fileName = $request->foto->getClientOriginalName();
             $request->foto->move(public_path('admin/img'),$fileName);
         }
@@ -156,7 +199,21 @@ class PetugasController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'jabatan_id' => 'required|integer',
             'updated_at'=>now(),
-        ]);
+        ],
+        [
+            'nama.required'=>'Nama Wajib Diisi',
+            'nama.max'=>'Nama Maksimal 45 karakter',
+            'tmp_lahir.required'=>'Tempat Lahir Wajib Diisi',
+            'tgl_lahir.required'=>'Tanggal Lahir Wajib Diisi',
+            'jabatan_id.required'=>'Jabatan Wajib Diisi',
+            'jabatan_id.integer'=>'Jabatan Wajib Diisi Berupa dari Pilihan yg Tersedia',
+            'gender.required'=>'Jenis Kelamin Wajib Diisi',
+            'status.required'=>'Status Wajib Diisi',
+            'foto.image'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.mimes'=>'Extensi Foto Harus jpg,png,jpeg,gif,svg',
+            'foto.max'=>'Ukuran Foto Maksimal 2048',
+        ]
+    );
         //------------foto lama apabila user ingin ganti foto-----------
         $foto = DB::table('petugas')->select('foto')->where('id',$id)->get();
         foreach($foto as $f){
@@ -167,7 +224,7 @@ class PetugasController extends Controller
             //jika ada foto lama, hapus foto lamanya terlebih dahulu
             if(!empty($row->foto)) unlink('admin/img/'.$row->foto);
             //proses foto lama ganti foto baru
-            $fileName = 'foto-'.$request->kode_petugas.'.'.$request->foto->extension();
+            $fileName = 'foto-'.$request->nama.'.'.$request->foto->extension();
             //$fileName = $request->foto->getClientOriginalName();
             $request->foto->move(public_path('admin/img'),$fileName);
         }
@@ -202,9 +259,17 @@ class PetugasController extends Controller
      */
     public function destroy($id)
     {
+        // hapus file
+		// $gambar = Gambar::where('id',$id)->first();
+		// File::delete('data_file/'.$gambar->file);
+ 
+		// hapus data
+		// Gambar::where('id',$id)->delete();
+ 
+		// return redirect()->back();
         //sebelum hapus data, hapus terlebih dahulu fisik file fotonya jika ada
         $row = Petugas::find($id);
-        if(!empty($row->foto)) unlink('admin/img/'.$row->foto);
+        if(!empty($row->foto)) unlink(base_path('public/admin/img/'.$row->foto));
         //setelah itu baru hapus data pegawai
         Petugas::where('id',$id)->delete();
         return redirect()->route('petugas.index')
